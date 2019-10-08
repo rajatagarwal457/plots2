@@ -33,7 +33,7 @@
           <small>
             <% if node.type == 'note' %>
               <div style="font-size: 1.3em;">Post by <a <% if @widget %>target="_blank"<% end %> href="/profile/<%= node.author.name %>">@<%= node.author.name %></a> <%= node.author.new_contributor %></div>
-                <% if tagname && node.has_tag("pin:#{tagname}") %><span class="bottom-right"><i rel="tooltip" title="This item was pinned with the tag 'pin:<%= tagname %>'." class="fa fa-thumb-tack"></i></span><% end %>
+                <% if tagname && node.has_tag("pin:#{tagname}") %><span class="pull-right" style="margin-right:8px;color:#aaa;"><i rel="tooltip" title="This item was pinned with the tag 'pin:<%= tagname %>'." class="fa fa-thumb-tack"></i></span><% end %>
                 <a class="ellipsis bottom-right" data-toggle="dropdown">&nbsp<i class="fa fa-ellipsis-h" style="color:#aaa;font-size:15px;float:right;"></i></a>
                   <ul class="dropdown-menu" style = "width: 150px; font-size:10px;">
                     <li>
