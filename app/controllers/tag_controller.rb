@@ -139,11 +139,20 @@ class TagController < ApplicationController
           .order(order_by)
       end
     end
-    nodes = nodes.where(created: @start.to_i..@end.to_i) if @start && @end
 
-    qids = Node.questions.where(status: 1).collect(&:nid)
+    if @start && @end
+      nodes = nodes.where(created: @start.to_i..@end.to_i)
+    else
+      pinned_nodes = Node.pinned_nodes(params[:id])
+      if pinned_nodes.length > 0 && (params[:page] && params[:page].to_i > 1)
+        nodes = nodes.where.not(id: pinned_nodes.collect(&:id))
+      end
+    end
+
+    qids = Node.questions.where(status: 1)
+               .collect(&:nid)
     if qids.empty?
-      @notes = nodes
+      @notes = pinned_nodes + nodes
       @questions = []
     else
       @notes = nodes.where('node.nid NOT IN (?)', qids) if @node_type == 'note'
