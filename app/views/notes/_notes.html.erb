@@ -1,4 +1,5 @@
 <% notes = notes || @notes # accept local if present, default to instance %>
+<% tagname = tagname || false %>
 <div id="notes">
     <div class="row">
       <% notes.each_with_index do |node,i| %>
