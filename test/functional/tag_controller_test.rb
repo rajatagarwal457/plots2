@@ -34,6 +34,8 @@ class TagControllerTest < ActionController::TestCase
   test 'check tag show page' do
     UserSession.create(users(:bob))
 
+    # add a "pin" tag so this post should appear first
+    nodes(:activity).add_tag('pin:blog', users(:bob))
     get :show,
         params: {
           node_type: 'contributors',
@@ -41,6 +43,7 @@ class TagControllerTest < ActionController::TestCase
         }
 
     assert_template :show
+    assert assigns[:notes].first.has_tag('pin:blog')
     assert_response :success
   end
 
