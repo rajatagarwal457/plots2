@@ -155,7 +155,7 @@ class TagController < ApplicationController
       @notes = pinned_nodes + nodes
       @questions = []
     else
-      @notes = nodes.where('node.nid NOT IN (?)', qids) if @node_type == 'note'
+      @notes = pinned_nodes + nodes.where('node.nid NOT IN (?)', qids) if @node_type == 'note'
       @questions = nodes.where('node.nid IN (?)', qids) if @node_type == 'questions'
     end
 
